@@ -1,13 +1,11 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-
 import { isAuthenticated } from './../auth/helpers'
 
-import { totalItem } from './../helpers/cartHelpers'
+import { useSelector } from 'react-redux'
 
 import toastr from 'toastr';
 import "toastr/build/toastr.css";
-
 
 import {API_URL} from './../config'
 
@@ -25,12 +23,7 @@ const isActive = (history, path) => {
 
 const Menu = (props) => {
 
-
-    const [totalItemToCart, setTotalItemToCart] = useState(0)
-
-    useEffect(() => {
-         setTotalItemToCart(totalItem())
-    }, [localStorage])
+    let countItem = useSelector(state => state.cart.count)
 
     const signout = () => {
 
@@ -54,7 +47,7 @@ const Menu = (props) => {
     return (
         <div>
 
-            <nav className="navbar navbar-expand-lg navbar-dark bg-success">
+            <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-success">
             <Link className="navbar-brand" to="/">Ecommerce</Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
@@ -105,12 +98,12 @@ const Menu = (props) => {
 
                     { isAuthenticated() && (
                         <Fragment>
-                           <li className="nav-item">
-                                <Link className="nav-link" to="#">Cart 
-                                    <span style={{fontSize: '16px'}} className="ml-1 badge badge-info">{totalItemToCart}</span>    
-                                </Link>
+                            <li className="nav-item">
+                                <span className="nav-link">
+                                    Cart <span className="badge badge-warning"> { countItem }</span>
+                                </span>
                             </li>
-
+                            
                             <li className="nav-item">
                                 <span className="nav-link" style={{ cursor: 'pointer' }} onClick={signout}>SignOut</span>
                             </li>

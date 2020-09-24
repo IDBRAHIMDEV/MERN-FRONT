@@ -1,12 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { addToCart } from './../helpers/cartHelpers';
+import { addToCart } from './../actions/cartActions'
+
+import { useDispatch } from 'react-redux'
 
 import ShowImage from './ShowImage';
 import moment from 'moment'
 
 const Card = ({product, showViewBtn = true}) => {
+    
+    let dispatch = useDispatch() 
 
     const showStock = (quantity) => {
      
@@ -46,7 +50,7 @@ const Card = ({product, showViewBtn = true}) => {
                   )}
 
                   { product.quantity > 0 && (
-                    <button onClick={() => addToCart(product)} className="btn btn-success">Add to Cart</button>
+                    <button onClick={() => dispatch(addToCart(product))} className="btn btn-success">Add to Cart</button>
 
                   ) }
               </div>
