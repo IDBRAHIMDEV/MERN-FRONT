@@ -96,13 +96,13 @@ const Menu = (props) => {
                         </Fragment>
                 ) }
 
+                            <li className="nav-item">
+                                <Link style={isActive(props.history, '/cart')} className="nav-link" to="/cart">
+                                        Cart <span className="badge badge-warning"> { countItem }</span>
+                                </Link>
+                            </li>
                     { isAuthenticated() && (
                         <Fragment>
-                            <li className="nav-item">
-                                <span className="nav-link">
-                                    Cart <span className="badge badge-warning"> { countItem }</span>
-                                </span>
-                            </li>
                             
                             <li className="nav-item">
                                 <span className="nav-link" style={{ cursor: 'pointer' }} onClick={signout}>SignOut</span>
